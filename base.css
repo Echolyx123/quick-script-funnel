@@ -1,0 +1,234 @@
+/* =======================
+   base.css — Clinic Smart Funnel App (2025+ Refined)
+   ======================= */
+
+/* RESET & BASELINE */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(117deg, #f7fbff 0%, #e6ecf3 45%, #f8fafc 100%);
+  color: #23272f;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  line-height: 1.6;
+  letter-spacing: 0.012em;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-attachment: fixed;
+}
+
+/* SYSTEM COLOUR PALETTE: 2025+ Clinic Brand */
+:root {
+  --brand-primary: #1676d2;      /* Calm clinical blue */
+  --brand-accent: #e3b97b;       /* Soft champagne/gold accent */
+  --brand-success: #31b87a;      /* Lively, calming green */
+  --brand-danger: #de3e44;       /* For warnings/contraindications */
+  --brand-neutral: #f7fafc;      /* Ultra-light background */
+  --brand-grey: #c6ced7;         /* Muted border/shadow */
+  --brand-black: #23272f;        /* Modern black */
+  --brand-white: #ffffff;
+  --brand-info: #9dcbf9;         /* Info highlight */
+  --shadow-1: 0 12px 54px rgba(22,118,210,0.11), 0 2px 7px #e3b97b1a;
+  --shadow-2: 0 6px 32px rgba(22,118,210,0.13);
+  --focus-ring: 0 0 0 3px var(--brand-accent);
+}
+
+/* APP BACKGROUND WRAPPER */
+#app-background {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: linear-gradient(108deg, #f7fbff 0%, #e6ecf3 45%, #f8fafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Universal Centering for App Sections */
+.app-centre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 96vh;
+  width: 100%;
+  z-index: 2;
+}
+
+/* TYPOGRAPHY — Modern, Calming, Clear */
+h1, h2, h3, h4 {
+  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  color: var(--brand-black);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.7rem;
+  margin-bottom: 0.17em;
+  letter-spacing: -0.035em;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.52em;
+}
+
+h3 {
+  font-size: 1.26rem;
+  margin-bottom: 0.18em;
+}
+
+h4 {
+  font-size: 1.09rem;
+  margin-bottom: 0.14em;
+}
+
+p, .app-tagline, .tip, .drawer-body, .modal-content {
+  font-size: 1.09rem;
+  color: #374151;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.app-title {
+  color: var(--brand-primary);
+  font-size: 2.38rem;
+  margin-bottom: 0.14em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.app-tagline {
+  color: var(--brand-grey);
+  margin-bottom: 2.1em;
+  font-size: 1.09rem;
+  letter-spacing: 0.017em;
+  font-weight: 500;
+}
+
+/* ICONS/LOGOS - App-Scale */
+.icon,
+.app-logo {
+  font-size: 2.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.14em;
+  user-select: none;
+}
+
+.icon.large {
+  font-size: 4.2rem;
+}
+
+/* Hide elements utility */
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: flex !important;
+}
+
+/* Utility for modals/drawers (base only) */
+.modal,
+.drawer {
+  font-family: inherit;
+}
+
+/* Universal Card Class (overwritten in components.css) */
+.card {
+  background: var(--brand-white);
+  border-radius: 2.7em;
+  box-shadow: var(--shadow-1);
+  padding: 3.2em 2.7em 2.3em 2.7em;
+  min-width: 370px;
+  max-width: 600px;
+  width: 98%;
+  margin: 0 auto 2em auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.12rem;
+}
+
+/* SELECTION AND FOCUS STYLES */
+::selection {
+  background: var(--brand-info);
+  color: var(--brand-black);
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--brand-accent);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+/* SCROLLBAR — Modern, Thin */
+body, * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-primary) var(--brand-neutral);
+}
+::-webkit-scrollbar {
+  width: 7px;
+  background: var(--brand-neutral);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-primary);
+  border-radius: 5px;
+}
+
+/* LINK STYLES (for any inline links) */
+a {
+  color: var(--brand-primary);
+  text-decoration: underline;
+  transition: color 0.18s;
+  cursor: pointer;
+}
+a:hover, a:focus {
+  color: var(--brand-accent);
+  text-decoration: none;
+}
+
+/* RESPONSIVE FONT AND LAYOUT */
+@media (max-width: 900px) {
+  h1 { font-size: 2.05rem; }
+  h2 { font-size: 1.26rem; }
+  .app-title { font-size: 1.53rem; }
+  .icon, .app-logo { font-size: 2.1rem; }
+  .card { padding: 2em 1.1em; min-width: 94vw; max-width: 99vw; font-size: 1.01rem;}
+}
+@media (max-width: 600px) {
+  h1 { font-size: 1.38rem; }
+  h2 { font-size: 1.05rem; }
+  .card { padding: 1.2em 0.1em; min-width: 99vw; max-width: 99vw; }
+  .icon, .app-logo { font-size: 1.12rem; }
+}
+
+/* TRANSITIONS - Universal for App */
+.transition {
+  transition: all 0.23s cubic-bezier(0.57,0,0.23,1);
+}
+
+/* END base.css */

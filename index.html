@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clinic Smart Funnel App</title>
+  <link rel="stylesheet" href="base.css"/>
+  <link rel="stylesheet" href="components.css"/>
+  <link rel="stylesheet" href="buttons.css"/>
+  <link rel="stylesheet" href="animations.css"/>
+  <link rel="stylesheet" href="interactivity.css"/>
+  <link rel="stylesheet" href="form.css"/>
+  <!-- Future: add <link rel="stylesheet" href="form.css"/> for form styling -->
+</head>
+<body>
+  <div id="app-background">
+
+    <!-- Splash/Startup Screen -->
+    <section id="splash" class="app-centre visible">
+      <div class="splash-content">
+        <div class="app-logo">🦷</div>
+        <h1 class="app-title">Clinic Smart Funnel</h1>
+        <p class="app-tagline">Personalised pre-consultation in 60 seconds</p>
+        <!-- New: Funnel creation/demo entry -->
+        <button id="start-btn" class="primary-btn">Begin Pre-Consultation</button>
+        <button id="create-funnel-btn" class="secondary-btn">Create My Own Funnel</button>
+        <button id="what-btn" class="flat-btn">What is this?</button>
+      </div>
+    </section>
+
+    <!-- Funnel Creation / Admin Mini-Form (NEW) -->
+    <section id="funnel-creator" class="app-centre hidden">
+      <div class="card form-card">
+        <div class="icon large" id="form-icon">🛠️</div>
+        <h2>Create Your Clinic Funnel</h2>
+        <form id="funnel-create-form">
+          <div class="form-group">
+            <label for="clinic-name">Clinic or Brand Name</label>
+            <input type="text" id="clinic-name" name="clinicName" required placeholder="e.g. WhiteSmile Dental"/>
+          </div>
+          <div class="form-group">
+            <label for="clinic-type">Type of Clinic</label>
+            <select id="clinic-type" name="clinicType" required>
+              <option value="" disabled selected>Select type…</option>
+              <option value="dental">Dental</option>
+              <option value="cosmetic">Cosmetic</option>
+              <option value="skin">Skin/Aesthetics</option>
+              <option value="hair">Hair</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Main Treatments (select all that apply)</label>
+            <div class="checkbox-row">
+              <label><input type="checkbox" name="treatments" value="whitening"/>Teeth Whitening</label>
+              <label><input type="checkbox" name="treatments" value="implants"/>Implants</label>
+              <label><input type="checkbox" name="treatments" value="veneers"/>Veneers</label>
+              <label><input type="checkbox" name="treatments" value="botox"/>Botox</label>
+              <label><input type="checkbox" name="treatments" value="fillers"/>Fillers</label>
+              <label><input type="checkbox" name="treatments" value="other"/>Other</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="clinic-tone">Preferred Tone</label>
+            <select id="clinic-tone" name="clinicTone" required>
+              <option value="" disabled selected>Select one…</option>
+              <option value="friendly">Friendly & Approachable</option>
+              <option value="professional">Professional & Formal</option>
+              <option value="innovative">Modern & Innovative</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="primary-btn btn-large">Generate Funnel</button>
+            <button type="button" class="flat-btn" id="cancel-create-funnel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Modal/Drawer for 'What is this?' explanation -->
+    <div id="info-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-modal" id="close-info">&times;</span>
+        <h2>What is this?</h2>
+        <p>
+          This is your personalised, AI-driven clinic pre-consultation.<br>
+          Answer a few quick questions to discover your treatment options, 
+          eligibility, and helpful tips before you even book!<br>
+          <b>Want your own branded funnel?</b> Click “Create My Own Funnel.”
+        </p>
+      </div>
+    </div>
+
+    <!-- Premade Funnel Selector -->
+<section id="funnel-chooser" class="app-centre hidden">
+  <h2 class="section-title">Choose a Pre-Consultation Funnel</h2>
+  <div id="funnel-scroll-container" class="scroll-list">
+    <!-- JS will populate this dynamically -->
+  </div>
+  <div class="funnel-controls">
+    <button id="back-to-splash" class="flat-btn">← Back</button>
+  </div>
+</section>
+
+    <!-- Quiz Funnel Main Section -->
+    <section id="funnel" class="app-centre hidden">
+      <div id="progress-bar"><div id="progress-inner"></div></div>
+      <div id="step-indicator">Step <span id="step-num">1</span> of <span id="step-total">5</span></div>
+      <div id="question-card" class="card">
+        <div id="question-icon" class="icon"></div>
+        <h2 id="question-text"></h2>
+        <div id="answers"></div>
+        <div class="guide-text" id="question-guide"></div>
+        <div id="tip-area" class="tip"></div>
+      </div>
+      <div class="nav-controls">
+        <button id="back-btn" class="secondary-btn">Back</button>
+        <button id="next-btn" class="primary-btn">Next</button>
+      </div>
+      <button id="faq-btn" class="floating-btn" title="FAQ or Help">?</button>
+    </section>
+
+    <!-- FAQ/Explainer Drawer -->
+    <div id="faq-drawer" class="drawer hidden">
+      <div class="drawer-header">
+        <span>FAQ & Explainers</span>
+        <button id="close-faq" class="close-drawer">&times;</button>
+      </div>
+      <div class="drawer-body" id="faq-body">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+
+    <!-- Eligibility/Result Card -->
+    <section id="result" class="app-centre hidden">
+      <div class="result-content card">
+        <div id="result-icon" class="icon large"></div>
+        <h2 id="result-title"></h2>
+        <p id="result-message"></p>
+        <div id="recommendations"></div>
+        <button id="book-btn" class="primary-btn">Book Consultation</button>
+        <button id="download-btn" class="secondary-btn">Download Summary</button>
+        <button id="restart-btn" class="flat-btn">Restart</button>
+      </div>
+    </section>
+
+    <!-- Future: More screens can be inserted here as needed -->
+
+  </div>
+  <!-- JS modules: Load in order for best results -->
+  <script src="base.js"></script>
+<script src="form.js"></script>
+<script src="selector.js"></script>
+<script src="quiz.js"></script>
+
+  <!-- <script src="form.js"></script> -->
+  <!-- <script src="quiz.js"></script> -->
+  <!-- <script src="ui.js"></script> -->
+  <!-- <script src="result.js"></script> -->
+  <!-- <script src="faq.js"></script> -->
+  <!-- Add further modules as needed -->
+</body>
+</html>

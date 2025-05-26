@@ -1,0 +1,719 @@
+{
+  "funnels": [
+    {
+      "id": "funnel-hair-prp-advanced-01",
+      "version": "2.0",
+      "previewName": "Advanced Hair PRP Consultation",
+      "clinicProfile": {
+        "name": "Regrow Hair Clinic",
+        "type": "hair",
+        "tone": "expert",
+        "treatments": ["PRP", "hair loss"]
+      },
+      "tags": ["hair", "prp", "confidence", "treatment"],
+      "patientIntent": "Regrow thinning hair with platelet-rich plasma therapy.",
+      "thresholds": { "eligible": 60, "conditional": 30, "ineligible": 0 },
+      "steps": [
+        { "id": "duration", "type": "choice", "icon": "📆", "text": "Has your hair loss lasted more than 3 years?", "guide": "Chronic loss may respond more slowly.", "options": ["Yes", "No"], "priority": 1, "category": "context" },
+        { "id": "bloodThinners", "type": "choice", "icon": "💊", "text": "Are you on blood thinners?", "guide": "May affect clotting during PRP.", "options": ["Yes", "No"], "priority": 1, "category": "risk" },
+        { "id": "clottingDisorder", "type": "choice", "icon": "🩸", "text": "Any clotting disorders diagnosed?", "guide": "Can affect PRP safety.", "options": ["Yes", "No"], "priority": 1, "category": "risk" },
+        { "id": "previousPRP", "type": "choice", "icon": "🧬", "text": "Have you had PRP before?", "guide": "Helps assess familiarity and response.", "options": ["Yes", "No"], "priority": 2, "category": "context" },
+        { "id": "areaSeverity", "type": "choice", "icon": "📸", "text": "How severe is the thinning area?", "guide": "We’ll tailor the dose accordingly.", "options": ["Mild", "Moderate", "Severe"], "priority": 1, "category": "context" },
+        { "id": "expectations", "type": "choice", "icon": "🔍", "text": "Are you expecting complete regrowth?", "guide": "Setting realistic expectations is important.", "options": ["Yes", "No"], "priority": 2, "category": "expectation" }
+      ],
+      "logicBlocks": [
+        {
+          "id": "high-risk-block",
+          "conditions": [
+            { "id": "bloodThinners", "value": "Yes", "weight": -40 },
+            { "id": "clottingDisorder", "value": "Yes", "weight": -60 }
+          ],
+          "message": "You reported both blood thinning and a clotting disorder, which pose safety risks."
+        },
+        {
+          "id": "duration-negative",
+          "conditions": [
+            { "id": "duration", "value": "Yes", "weight": -20 }
+          ],
+          "message": "Long-term hair loss can reduce PRP effectiveness."
+        },
+        {
+          "id": "severity-concern",
+          "conditions": [
+            { "id": "areaSeverity", "value": "Severe", "weight": -15 }
+          ],
+          "message": "Severe thinning areas may need multiple sessions."
+        },
+        {
+          "id": "no-expectation-block",
+          "conditions": [
+            { "id": "expectations", "value": "No", "weight": 10 }
+          ],
+          "message": "Great — realistic expectations are key to success."
+        },
+        {
+          "id": "prior-success",
+          "conditions": [
+            { "id": "previousPRP", "value": "Yes", "weight": 20 }
+          ],
+          "message": "Previous PRP experience increases likelihood of success."
+        }
+      ]
+    },
+
+    {
+      "id": "funnel-whitening-advanced-01",
+      "version": "2.0",
+      "previewName": "Teeth Whitening Consultation",
+      "clinicProfile": {
+        "name": "BrightSmile Dental",
+        "type": "dental",
+        "tone": "friendly",
+        "treatments": ["teeth whitening"]
+      },
+      "tags": ["dental", "whitening", "aesthetic"],
+      "patientIntent": "Assess readiness for safe and effective teeth whitening.",
+      "thresholds": { "eligible": 60, "conditional": 20, "ineligible": 0 },
+      "steps": [
+        { "id": "cleaned", "type": "choice", "icon": "🪥", "text": "Have you had a cleaning in the past 6 months?", "guide": "Clean teeth whiten more effectively.", "options": ["Yes", "No"] },
+        { "id": "smoker", "type": "choice", "icon": "🚬", "text": "Do you smoke or vape regularly?", "guide": "Can affect whitening results.", "options": ["Yes", "No"] },
+        { "id": "crowns", "type": "choice", "icon": "🦷", "text": "Do you have crowns, veneers or implants?", "guide": "These don’t whiten like natural teeth.", "options": ["Yes", "No"] },
+        { "id": "sensitivity", "type": "choice", "icon": "🥶", "text": "Do you experience tooth sensitivity?", "guide": "We’ll suggest the right formula.", "options": ["Yes", "No"] }
+      ],
+      "logicBlocks": [
+        {
+          "id": "crowns-warning",
+          "conditions": [
+            { "id": "crowns", "value": "Yes", "weight": -30 }
+          ],
+          "message": "Crowns or veneers will not change colour with whitening."
+        },
+        {
+          "id": "smoking-reduction",
+          "conditions": [
+            { "id": "smoker", "value": "Yes", "weight": -25 }
+          ],
+          "message": "Smoking can slow or reduce whitening effects."
+        },
+        {
+          "id": "cleaning-boost",
+          "conditions": [
+            { "id": "cleaned", "value": "Yes", "weight": 20 }
+          ],
+          "message": "Great! Clean teeth optimise whitening success."
+        },
+        {
+          "id": "sensitivity-caution",
+          "conditions": [
+            { "id": "sensitivity", "value": "Yes", "weight": -10 }
+          ],
+          "message": "You may need a milder formula to reduce sensitivity."
+        }
+      ]
+    },
+    {
+  "id": "funnel-botox-forehead-01",
+  "version": "2.0",
+  "previewName": "Botox for Forehead Lines",
+  "clinicProfile": {
+    "name": "SkinBalance Aesthetics",
+    "type": "cosmetic",
+    "tone": "professional",
+    "treatments": ["botox", "forehead lines"]
+  },
+  "tags": ["botox", "wrinkles", "aesthetic"],
+  "patientIntent": "Reduce forehead lines with botulinum toxin injections.",
+  "thresholds": { "eligible": 70, "conditional": 40, "ineligible": 0 },
+  "steps": [
+    { "id": "neuro", "type": "choice", "icon": "🧠", "text": "Do you have any neurological conditions?", "guide": "May affect Botox suitability.", "options": ["Yes", "No"] },
+    { "id": "pregnant", "type": "choice", "icon": "🤰", "text": "Are you pregnant or breastfeeding?", "guide": "Botox is not advised in these cases.", "options": ["Yes", "No"] },
+    { "id": "allergic", "type": "choice", "icon": "⚠️", "text": "Are you allergic to botulinum toxin?", "guide": "Essential to know for safety.", "options": ["Yes", "No"] },
+    { "id": "expectFast", "type": "choice", "icon": "⏱️", "text": "Do you expect immediate results?", "guide": "Results develop over days, not instantly.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "neurological-risk",
+      "conditions": [ { "id": "neuro", "value": "Yes", "weight": -60 } ],
+      "message": "Neurological conditions may interfere with Botox safety."
+    },
+    {
+      "id": "pregnancy",
+      "conditions": [ { "id": "pregnant", "value": "Yes", "weight": -50 } ],
+      "message": "Botox is not advised during pregnancy or breastfeeding."
+    },
+    {
+      "id": "allergy-risk",
+      "conditions": [ { "id": "allergic", "value": "Yes", "weight": -100 } ],
+      "message": "Allergy to botulinum toxin makes Botox unsafe."
+    },
+    {
+      "id": "realistic-expectation",
+      "conditions": [ { "id": "expectFast", "value": "No", "weight": 20 } ],
+      "message": "Great — results build up over a few days, not instantly."
+    }
+  ]
+},
+{
+  "id": "funnel-laser-underarm-01",
+  "version": "2.0",
+  "previewName": "Underarm Laser Hair Removal",
+  "clinicProfile": {
+    "name": "GlowSkin Laser Studio",
+    "type": "skin",
+    "tone": "clean",
+    "treatments": ["laser", "hair removal"]
+  },
+  "tags": ["laser", "underarm", "hair removal", "skin"],
+  "patientIntent": "Reduce underarm hair growth permanently with laser.",
+  "thresholds": { "eligible": 60, "conditional": 30, "ineligible": 0 },
+  "steps": [
+    { "id": "tan", "type": "choice", "icon": "🌞", "text": "Have you tanned recently (past 2 weeks)?", "guide": "Laser can irritate tanned skin.", "options": ["Yes", "No"] },
+    { "id": "pregnant", "type": "choice", "icon": "🤱", "text": "Are you pregnant or breastfeeding?", "guide": "We advise postponing during pregnancy.", "options": ["Yes", "No"] },
+    { "id": "hormonal", "type": "choice", "icon": "💊", "text": "Are you on hormonal medication?", "guide": "May affect laser outcome.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "recent-tan",
+      "conditions": [ { "id": "tan", "value": "Yes", "weight": -30 } ],
+      "message": "Recent tanning increases the chance of skin irritation."
+    },
+    {
+      "id": "hormonal-check",
+      "conditions": [ { "id": "hormonal", "value": "Yes", "weight": -15 } ],
+      "message": "Hormones may affect hair growth cycles, influencing results."
+    },
+    {
+      "id": "pregnancy-delay",
+      "conditions": [ { "id": "pregnant", "value": "Yes", "weight": -40 } ],
+      "message": "Treatment should be postponed until after pregnancy."
+    }
+  ]
+},
+{
+  "id": "funnel-lip-fillers-01",
+  "version": "2.0",
+  "previewName": "Lip Fillers Consultation",
+  "clinicProfile": {
+    "name": "Contour Lab",
+    "type": "cosmetic",
+    "tone": "neutral",
+    "treatments": ["lip fillers"]
+  },
+  "tags": ["fillers", "cosmetic", "lip enhancement"],
+  "patientIntent": "Add volume and shape to lips with hyaluronic fillers.",
+  "thresholds": { "eligible": 50, "conditional": 25, "ineligible": 0 },
+  "steps": [
+    { "id": "coldSores", "type": "choice", "icon": "🦠", "text": "Have you had cold sores recently?", "guide": "Filler can trigger outbreaks.", "options": ["Yes", "No"] },
+    { "id": "previousFiller", "type": "choice", "icon": "💉", "text": "Have you had lip filler before?", "guide": "This helps determine the technique.", "options": ["Yes", "No"] },
+    { "id": "expectNatural", "type": "choice", "icon": "💋", "text": "Do you want a natural look?", "guide": "Sets tone for treatment style.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "cold-sore-flag",
+      "conditions": [ { "id": "coldSores", "value": "Yes", "weight": -30 } ],
+      "message": "Cold sores can be triggered by filler — antiviral cover may be needed."
+    },
+    {
+      "id": "filler-familiarity",
+      "conditions": [ { "id": "previousFiller", "value": "Yes", "weight": 20 } ],
+      "message": "Previous filler helps guide expectations."
+    },
+    {
+      "id": "natural-style-alignment",
+      "conditions": [ { "id": "expectNatural", "value": "Yes", "weight": 15 } ],
+      "message": "Great — we specialise in natural lip balancing."
+    }
+  ]
+},
+{
+  "id": "funnel-peel-acne-01",
+  "version": "2.0",
+  "previewName": "Skin Peel for Acne-Prone Skin",
+  "clinicProfile": {
+    "name": "Renew Aesthetics",
+    "type": "skin",
+    "tone": "supportive",
+    "treatments": ["skin peel", "acne", "exfoliation"]
+  },
+  "tags": ["peel", "acne", "chemical", "skin"],
+  "patientIntent": "Manage acne with a customised peel treatment.",
+  "thresholds": { "eligible": 70, "conditional": 35, "ineligible": 0 },
+  "steps": [
+    { "id": "retinoids", "type": "choice", "icon": "🧴", "text": "Are you using retinoids or prescription topicals?", "guide": "They can increase sensitivity.", "options": ["Yes", "No"] },
+    { "id": "sunExposure", "type": "choice", "icon": "🌞", "text": "Have you had major sun exposure in the past week?", "guide": "Can cause overreaction to peels.", "options": ["Yes", "No"] },
+    { "id": "acneSeverity", "type": "choice", "icon": "🔍", "text": "How severe is your current breakout?", "guide": "Helps match peel strength.", "options": ["Mild", "Moderate", "Severe"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "retinoid-risk",
+      "conditions": [ { "id": "retinoids", "value": "Yes", "weight": -20 } ],
+      "message": "Retinoids increase sensitivity — peel strength will be adjusted."
+    },
+    {
+      "id": "sun-flag",
+      "conditions": [ { "id": "sunExposure", "value": "Yes", "weight": -30 } ],
+      "message": "Recent sun exposure may cause irritation — better to wait."
+    },
+    {
+      "id": "severe-breakout",
+      "conditions": [ { "id": "acneSeverity", "value": "Severe", "weight": -20 } ],
+      "message": "We’ll need to start with a milder peel and re-assess."
+    },
+    {
+      "id": "mild-case",
+      "conditions": [ { "id": "acneSeverity", "value": "Mild", "weight": 15 } ],
+      "message": "Great — mild acne responds well to tailored peels."
+    }
+  ]
+},
+{
+  "id": "funnel-jawline-filler-01",
+  "version": "2.0",
+  "previewName": "Jawline Contouring (Dermal Filler)",
+  "clinicProfile": {
+    "name": "Sculpt Aesthetics",
+    "type": "cosmetic",
+    "tone": "structured",
+    "treatments": ["jawline filler", "dermal filler"]
+  },
+  "tags": ["jawline", "filler", "contouring", "facial aesthetics"],
+  "patientIntent": "Enhance jawline symmetry and volume using dermal filler.",
+  "thresholds": { "eligible": 60, "conditional": 35, "ineligible": 0 },
+  "steps": [
+    { "id": "bruxism", "type": "choice", "icon": "😬", "text": "Do you grind your teeth or clench your jaw?", "guide": "This can affect filler longevity.", "options": ["Yes", "No"] },
+    { "id": "ageBracket", "type": "choice", "icon": "🎂", "text": "What age group do you belong to?", "guide": "Jawline filler effects differ by age.", "options": ["18–30", "31–45", "46+"] },
+    { "id": "goals", "type": "choice", "icon": "🎯", "text": "Is your goal structure, balance, or lift?", "guide": "We’ll align technique to intent.", "options": ["Structure", "Balance", "Lift"] },
+    { "id": "hydration", "type": "choice", "icon": "💧", "text": "Do you usually stay well hydrated?", "guide": "Hydration supports filler integration.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "bruxism-flag",
+      "conditions": [ { "id": "bruxism", "value": "Yes", "weight": -20 } ],
+      "message": "Jaw clenching can reduce filler duration — we’ll adapt placement."
+    },
+    {
+      "id": "hydration-boost",
+      "conditions": [ { "id": "hydration", "value": "Yes", "weight": 10 } ],
+      "message": "Well-hydrated clients typically see smoother results."
+    },
+    {
+      "id": "goal-alignment-lift",
+      "conditions": [ { "id": "goals", "value": "Lift", "weight": 15 } ],
+      "message": "Lift goals are achievable with specific vector techniques."
+    }
+  ]
+},
+{
+  "id": "funnel-chin-augmentation-01",
+  "version": "2.0",
+  "previewName": "Non-Surgical Chin Augmentation",
+  "clinicProfile": {
+    "name": "Profile Clinic",
+    "type": "cosmetic",
+    "tone": "elegant",
+    "treatments": ["chin filler", "non-surgical sculpting"]
+  },
+  "tags": ["chin", "augmentation", "balance", "facial profile"],
+  "patientIntent": "Enhance or correct chin proportions using non-surgical filler.",
+  "thresholds": { "eligible": 70, "conditional": 40, "ineligible": 0 },
+  "steps": [
+    { "id": "biteAlign", "type": "choice", "icon": "🦷", "text": "Is your bite aligned naturally (no orthodontic issues)?", "guide": "Helps determine natural chin position.", "options": ["Yes", "No"] },
+    { "id": "expectPermanent", "type": "choice", "icon": "⏳", "text": "Are you expecting permanent results?", "guide": "Non-surgical results are temporary.", "options": ["Yes", "No"] },
+    { "id": "profileConcerns", "type": "choice", "icon": "👤", "text": "Are you concerned more about profile or projection?", "guide": "Helps guide filler vector.", "options": ["Profile", "Projection"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "bite-misalignment",
+      "conditions": [ { "id": "biteAlign", "value": "No", "weight": -30 } ],
+      "message": "Bite misalignment can influence visual outcome — we’ll assess with care."
+    },
+    {
+      "id": "projection-request",
+      "conditions": [ { "id": "profileConcerns", "value": "Projection", "weight": 15 } ],
+      "message": "Chin projection can often be improved with deep placement techniques."
+    },
+    {
+      "id": "realistic-duration",
+      "conditions": [ { "id": "expectPermanent", "value": "No", "weight": 10 } ],
+      "message": "Great — our non-surgical results typically last 9–12 months."
+    }
+  ]
+},
+{
+  "id": "funnel-microneedling-acne-01",
+  "version": "2.0",
+  "previewName": "Microneedling for Acne Scars",
+  "clinicProfile": {
+    "name": "TrueSkin Clinic",
+    "type": "skin",
+    "tone": "scientific",
+    "treatments": ["microneedling", "acne scars", "skin renewal"]
+  },
+  "tags": ["microneedling", "acne", "scarring", "collagen"],
+  "patientIntent": "Stimulate collagen and smooth acne scars with needling.",
+  "thresholds": { "eligible": 65, "conditional": 35, "ineligible": 0 },
+  "steps": [
+    { "id": "actives", "type": "choice", "icon": "🧴", "text": "Are you using actives like AHAs or retinol daily?", "guide": "May increase irritation.", "options": ["Yes", "No"] },
+    { "id": "keloid", "type": "choice", "icon": "⚠️", "text": "Do you have a history of keloid scarring?", "guide": "May affect treatment eligibility.", "options": ["Yes", "No"] },
+    { "id": "healingTime", "type": "choice", "icon": "🕒", "text": "Can you take 3–5 days for post-procedure healing?", "guide": "Downtime is normal.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "actives-risk",
+      "conditions": [ { "id": "actives", "value": "Yes", "weight": -20 } ],
+      "message": "Daily actives increase risk of irritation — we’ll recommend a pause before treatment."
+    },
+    {
+      "id": "keloid-history",
+      "conditions": [ { "id": "keloid", "value": "Yes", "weight": -50 } ],
+      "message": "Keloid scarring may contraindicate microneedling — we’ll review in detail."
+    },
+    {
+      "id": "healing-confirmed",
+      "conditions": [ { "id": "healingTime", "value": "Yes", "weight": 20 } ],
+      "message": "Thanks — we’ll schedule your treatment with appropriate recovery time."
+    }
+  ]
+},
+{
+  "id": "funnel-botox-hyperhidrosis-01",
+  "version": "2.0",
+  "previewName": "Botox for Underarm Sweating",
+  "clinicProfile": {
+    "name": "FreshDerm Aesthetics",
+    "type": "skin",
+    "tone": "clinical",
+    "treatments": ["botox", "hyperhidrosis", "sweating"]
+  },
+  "tags": ["botox", "sweating", "hyperhidrosis", "underarm"],
+  "patientIntent": "Reduce excessive underarm sweating with Botox injections.",
+  "thresholds": { "eligible": 60, "conditional": 30, "ineligible": 0 },
+  "steps": [
+    { "id": "over6months", "type": "choice", "icon": "📅", "text": "Has the sweating lasted more than 6 months?", "guide": "Defines chronicity.", "options": ["Yes", "No"] },
+    { "id": "triedTopicals", "type": "choice", "icon": "🧼", "text": "Have you tried clinical-strength antiperspirants?", "guide": "We assess prior treatment use.", "options": ["Yes", "No"] },
+    { "id": "dailyDisruption", "type": "choice", "icon": "📉", "text": "Does it interfere with daily life?", "guide": "Defines severity.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "chronic-confirmed",
+      "conditions": [ { "id": "over6months", "value": "Yes", "weight": 20 } ],
+      "message": "Chronic symptoms support suitability for Botox therapy."
+    },
+    {
+      "id": "impact-assessed",
+      "conditions": [ { "id": "dailyDisruption", "value": "Yes", "weight": 25 } ],
+      "message": "Daily disruption confirms medical need and benefit likelihood."
+    },
+    {
+      "id": "no-topicals",
+      "conditions": [ { "id": "triedTopicals", "value": "No", "weight": -10 } ],
+      "message": "We recommend trying antiperspirants before proceeding to injections."
+    }
+  ]
+},
+{
+  "id": "funnel-led-rejuvenation-01",
+  "version": "2.0",
+  "previewName": "LED Light Therapy (Rejuvenation)",
+  "clinicProfile": {
+    "name": "LumaGlow Studio",
+    "type": "skin",
+    "tone": "restorative",
+    "treatments": ["LED", "light therapy"]
+  },
+  "tags": ["led", "light", "rejuvenation", "anti-aging"],
+  "patientIntent": "Rejuvenate tired or aging skin using light-emitting diodes (LED).",
+  "thresholds": { "eligible": 65, "conditional": 35, "ineligible": 0 },
+  "steps": [
+    { "id": "rosacea", "type": "choice", "icon": "🌹", "text": "Do you have rosacea or persistent redness?", "guide": "Blue light may not be suitable for sensitive skin.", "options": ["Yes", "No"] },
+    { "id": "photosensitive", "type": "choice", "icon": "☀️", "text": "Are you photosensitive or on light-sensitive medication?", "guide": "We may need to modify settings.", "options": ["Yes", "No"] },
+    { "id": "skinGoal", "type": "choice", "icon": "🎯", "text": "What is your goal: collagen boost or inflammation reduction?", "guide": "Helps us select wavelength and plan.", "options": ["Collagen Boost", "Inflammation Reduction"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "rosacea-caution",
+      "conditions": [ { "id": "rosacea", "value": "Yes", "weight": -20 } ],
+      "message": "Red skin types may need gentler LED wavelengths."
+    },
+    {
+      "id": "photosensitivity-flag",
+      "conditions": [ { "id": "photosensitive", "value": "Yes", "weight": -40 } ],
+      "message": "Photosensitivity may increase risk — we’ll adjust accordingly."
+    },
+    {
+      "id": "goal-confirmed",
+      "conditions": [ { "id": "skinGoal", "value": "Collagen Boost", "weight": 15 } ],
+      "message": "LED red light is ideal for collagen stimulation."
+    }
+  ]
+},
+{
+  "id": "funnel-cryolipolysis-01",
+  "version": "2.0",
+  "previewName": "Cryolipolysis (Fat Freezing)",
+  "clinicProfile": {
+    "name": "ShapeScience Lab",
+    "type": "body",
+    "tone": "clinical",
+    "treatments": ["cryolipolysis", "fat reduction"]
+  },
+  "tags": ["fat freezing", "body sculpting", "non-invasive"],
+  "patientIntent": "Reduce stubborn fat pockets non-surgically with targeted cold therapy.",
+  "thresholds": { "eligible": 70, "conditional": 30, "ineligible": 0 },
+  "steps": [
+    { "id": "bmi", "type": "choice", "icon": "⚖️", "text": "Is your BMI under 30?", "guide": "This procedure targets localised, not general fat.", "options": ["Yes", "No"] },
+    { "id": "pregnant", "type": "choice", "icon": "🤰", "text": "Are you currently pregnant?", "guide": "This is a contraindication for treatment.", "options": ["Yes", "No"] },
+    { "id": "coldSensitivity", "type": "choice", "icon": "❄️", "text": "Do you have cold sensitivity or Raynaud’s?", "guide": "These can interfere with treatment comfort.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "bmi-limit",
+      "conditions": [ { "id": "bmi", "value": "No", "weight": -30 } ],
+      "message": "Cryolipolysis is not intended for weight loss — local fat only."
+    },
+    {
+      "id": "cold-sensitivity",
+      "conditions": [ { "id": "coldSensitivity", "value": "Yes", "weight": -20 } ],
+      "message": "Cold sensitivity may cause discomfort or complications."
+    },
+    {
+      "id": "pregnancy-block",
+      "conditions": [ { "id": "pregnant", "value": "Yes", "weight": -60 } ],
+      "message": "We do not treat pregnant clients — safety first."
+    }
+  ]
+},
+{
+  "id": "funnel-nasolabial-filler-01",
+  "version": "2.0",
+  "previewName": "Nasolabial Filler Consultation",
+  "clinicProfile": {
+    "name": "Refine Aesthetics",
+    "type": "cosmetic",
+    "tone": "detailed",
+    "treatments": ["nasolabial", "fold filler"]
+  },
+  "tags": ["filler", "laugh lines", "facial folds"],
+  "patientIntent": "Softening the nasolabial fold for a smoother mid-face appearance.",
+  "thresholds": { "eligible": 55, "conditional": 25, "ineligible": 0 },
+  "steps": [
+    { "id": "foldDepth", "type": "choice", "icon": "📏", "text": "How deep are your nasolabial folds?", "guide": "Depth affects filler choice.", "options": ["Mild", "Moderate", "Deep"] },
+    { "id": "eventSoon", "type": "choice", "icon": "🎉", "text": "Do you have a major event within 3 days?", "guide": "Filler swelling needs downtime.", "options": ["Yes", "No"] },
+    { "id": "firstTimeFiller", "type": "choice", "icon": "🧪", "text": "Is this your first filler treatment?", "guide": "We tailor your plan accordingly.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "deep-folds-alert",
+      "conditions": [ { "id": "foldDepth", "value": "Deep", "weight": -15 } ],
+      "message": "Deeper folds may require more filler and touch-up planning."
+    },
+    {
+      "id": "event-warning",
+      "conditions": [ { "id": "eventSoon", "value": "Yes", "weight": -20 } ],
+      "message": "Filler swelling can last 24–72 hours — better to schedule after your event."
+    },
+    {
+      "id": "first-time-adjustment",
+      "conditions": [ { "id": "firstTimeFiller", "value": "Yes", "weight": 10 } ],
+      "message": "First-time clients often benefit from gradual buildup — we’ll guide you."
+    }
+  ]
+},
+{
+  "id": "funnel-hair-meso-01",
+  "version": "2.0",
+  "previewName": "Hair Mesotherapy",
+  "clinicProfile": {
+    "name": "RootLab Studio",
+    "type": "hair",
+    "tone": "regenerative",
+    "treatments": ["mesotherapy", "scalp treatment"]
+  },
+  "tags": ["hair", "mesotherapy", "revitalisation"],
+  "patientIntent": "Boost scalp health and hair growth with microinjection therapy.",
+  "thresholds": { "eligible": 60, "conditional": 25, "ineligible": 0 },
+  "steps": [
+    { "id": "scalpPain", "type": "choice", "icon": "😖", "text": "Do you experience scalp tenderness or pain?", "guide": "This may affect comfort or outcome.", "options": ["Yes", "No"] },
+    { "id": "bloodDisorder", "type": "choice", "icon": "🩸", "text": "Do you have any known blood disorders?", "guide": "May influence safety or healing.", "options": ["Yes", "No"] },
+    { "id": "hairLossPattern", "type": "choice", "icon": "📉", "text": "Is your hair loss diffuse or patchy?", "guide": "Helps identify most effective formula.", "options": ["Diffuse", "Patchy"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "blood-contraindication",
+      "conditions": [ { "id": "bloodDisorder", "value": "Yes", "weight": -40 } ],
+      "message": "Blood disorders can complicate mesotherapy treatment."
+    },
+    {
+      "id": "scalp-tenderness-caution",
+      "conditions": [ { "id": "scalpPain", "value": "Yes", "weight": -20 } ],
+      "message": "Scalp sensitivity may require adjusted technique."
+    },
+    {
+      "id": "pattern-match",
+      "conditions": [ { "id": "hairLossPattern", "value": "Diffuse", "weight": 10 } ],
+      "message": "Diffuse thinning often responds well to cocktail mesotherapy."
+    }
+  ]
+},
+{
+  "id": "funnel-rhinoplasty-nonsurgical-01",
+  "version": "2.0",
+  "previewName": "Non-Surgical Rhinoplasty",
+  "clinicProfile": {
+    "name": "Balance Face Lab",
+    "type": "cosmetic",
+    "tone": "harmonised",
+    "treatments": ["nose filler", "non-surgical rhinoplasty"]
+  },
+  "tags": ["nose", "bridge", "profile", "fillers"],
+  "patientIntent": "Correct nose asymmetries or smooth dorsal humps using filler.",
+  "thresholds": { "eligible": 70, "conditional": 40, "ineligible": 0 },
+  "steps": [
+    { "id": "noseSurgery", "type": "choice", "icon": "🔪", "text": "Have you had nasal surgery before?", "guide": "We may need to adjust our technique.", "options": ["Yes", "No"] },
+    { "id": "breathingIssues", "type": "choice", "icon": "🌬️", "text": "Do you experience any nasal breathing issues?", "guide": "Medical issues must be referred to ENT.", "options": ["Yes", "No"] },
+    { "id": "fillerExpectation", "type": "choice", "icon": "🎯", "text": "Do you understand filler cannot reduce nose size?", "guide": "We clarify the limits of contouring.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "surgery-history-flag",
+      "conditions": [ { "id": "noseSurgery", "value": "Yes", "weight": -15 } ],
+      "message": "Previous surgery may affect filler placement precision."
+    },
+    {
+      "id": "airway-warning",
+      "conditions": [ { "id": "breathingIssues", "value": "Yes", "weight": -40 } ],
+      "message": "Filler cannot address breathing issues — we recommend an ENT consult."
+    },
+    {
+      "id": "expectation-check",
+      "conditions": [ { "id": "fillerExpectation", "value": "Yes", "weight": 20 } ],
+      "message": "Excellent — filler enhances shape but does not shrink the nose."
+    }
+  ]
+},
+{
+  "id": "funnel-eyebrow-threadlift-01",
+  "version": "2.0",
+  "previewName": "PDO Eyebrow Thread Lift",
+  "clinicProfile": {
+    "name": "Aesthetic Frame",
+    "type": "cosmetic",
+    "tone": "refined",
+    "treatments": ["pdo thread", "brow lift"]
+  },
+  "tags": ["threads", "pdo", "brow", "lift"],
+  "patientIntent": "Lift the brow tail and open the eye with dissolvable threads.",
+  "thresholds": { "eligible": 65, "conditional": 35, "ineligible": 0 },
+  "steps": [
+    { "id": "eyelidHeaviness", "type": "choice", "icon": "👁️", "text": "Do your upper lids feel heavy?", "guide": "This helps assess benefit.", "options": ["Yes", "No"] },
+    { "id": "skinLaxity", "type": "choice", "icon": "📉", "text": "Is your skin slightly loose around the temples?", "guide": "Threads are more effective in mild to moderate laxity.", "options": ["Yes", "No"] },
+    { "id": "eventSoon", "type": "choice", "icon": "📆", "text": "Do you have an event in the next 7 days?", "guide": "Swelling and bruising is expected.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "event-delay",
+      "conditions": [ { "id": "eventSoon", "value": "Yes", "weight": -25 } ],
+      "message": "You may want to schedule post-event due to bruising risk."
+    },
+    {
+      "id": "heaviness-match",
+      "conditions": [ { "id": "eyelidHeaviness", "value": "Yes", "weight": 20 } ],
+      "message": "Clients with upper lid heaviness often see visual lift from threads."
+    },
+    {
+      "id": "laxity-support",
+      "conditions": [ { "id": "skinLaxity", "value": "Yes", "weight": 15 } ],
+      "message": "Mild laxity is ideal for successful thread lifting."
+    }
+  ]
+},
+{
+  "id": "funnel-laser-veinremoval-01",
+  "version": "2.0",
+  "previewName": "Laser Vein Removal (Spider Veins)",
+  "clinicProfile": {
+    "name": "VeinClear Studio",
+    "type": "skin",
+    "tone": "technical",
+    "treatments": ["laser vein", "vascular treatment"]
+  },
+  "tags": ["laser", "vascular", "veins"],
+  "patientIntent": "Reduce or remove visible spider veins with laser therapy.",
+  "thresholds": { "eligible": 60, "conditional": 30, "ineligible": 0 },
+  "steps": [
+    { "id": "recentTan", "type": "choice", "icon": "☀️", "text": "Have you tanned within the last 10 days?", "guide": "Tanned skin is more sensitive to laser.", "options": ["Yes", "No"] },
+    { "id": "bloodThinners", "type": "choice", "icon": "💉", "text": "Are you taking blood thinning medication?", "guide": "May increase bruising risk.", "options": ["Yes", "No"] },
+    { "id": "skinTone", "type": "choice", "icon": "🧑🏽", "text": "How would you describe your skin tone?", "guide": "Skin types affect laser wavelength used.", "options": ["Fair", "Medium", "Dark"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "tan-delay",
+      "conditions": [ { "id": "recentTan", "value": "Yes", "weight": -30 } ],
+      "message": "Recent tanning increases risk of burns — we recommend waiting."
+    },
+    {
+      "id": "bruising-risk",
+      "conditions": [ { "id": "bloodThinners", "value": "Yes", "weight": -20 } ],
+      "message": "Bruising may occur — we’ll advise extra care post-treatment."
+    },
+    {
+      "id": "tone-safety-info",
+      "conditions": [ { "id": "skinTone", "value": "Dark", "weight": -10 } ],
+      "message": "Darker skin tones require cautious energy settings to prevent PIH."
+    }
+  ]
+},
+{
+  "id": "funnel-skin-tag-removal-01",
+  "version": "2.0",
+  "previewName": "Skin Tag Removal Consultation",
+  "clinicProfile": {
+    "name": "ClearTouch Clinic",
+    "type": "skin",
+    "tone": "assurance",
+    "treatments": ["tag removal", "electrosurgery", "cryotherapy"]
+  },
+  "tags": ["skin tag", "lesion", "removal"],
+  "patientIntent": "Remove benign skin tags using safe, minor procedures.",
+  "thresholds": { "eligible": 70, "conditional": 30, "ineligible": 0 },
+  "steps": [
+    { "id": "diabetes", "type": "choice", "icon": "🍬", "text": "Do you have diabetes?", "guide": "Affects healing considerations.", "options": ["Yes", "No"] },
+    { "id": "locationSensitive", "type": "choice", "icon": "📍", "text": "Is the tag near an eye or genital area?", "guide": "Delicate locations may require referral.", "options": ["Yes", "No"] },
+    { "id": "bleedEasily", "type": "choice", "icon": "💧", "text": "Does the tag bleed easily when rubbed?", "guide": "May indicate need for histology.", "options": ["Yes", "No"] }
+  ],
+  "logicBlocks": [
+    {
+      "id": "sensitive-location",
+      "conditions": [ { "id": "locationSensitive", "value": "Yes", "weight": -30 } ],
+      "message": "Sensitive locations may require medical oversight or referral."
+    },
+    {
+      "id": "diabetes-care",
+      "conditions": [ { "id": "diabetes", "value": "Yes", "weight": -10 } ],
+      "message": "We’ll provide specific post-procedure care for diabetics."
+    },
+    {
+      "id": "bleeding-flag",
+      "conditions": [ { "id": "bleedEasily", "value": "Yes", "weight": -15 } ],
+      "message": "Tags that bleed may need examination for safety."
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  ]
+}

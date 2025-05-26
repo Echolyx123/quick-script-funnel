@@ -1,0 +1,198 @@
+/* =======================
+   animations.css — Clinic Smart Funnel App
+   ======================= */
+
+/* --- Card and Section Transitions --- */
+
+/* Fade In Up (main content/cards) */
+.fade-in-up {
+  animation: fadeInUp 0.48s cubic-bezier(0.61,0,0.32,1) both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.98);}
+  to   { opacity: 1; transform: translateY(0) scale(1);}
+}
+
+/* Fade Out Down (card out) */
+.fade-out-down {
+  animation: fadeOutDown 0.37s cubic-bezier(0.62,0,0.35,1) both;
+}
+
+@keyframes fadeOutDown {
+  from { opacity: 1; transform: translateY(0) scale(1);}
+  to   { opacity: 0; transform: translateY(32px) scale(0.97);}
+}
+
+/* Fade In (general, modals) */
+.fade-in {
+  animation: fadeIn 0.32s cubic-bezier(0.57,0,0.34,1) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to   { opacity: 1;}
+}
+
+/* Fade Out */
+.fade-out {
+  animation: fadeOut 0.21s cubic-bezier(0.66,0,0.3,1) both;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1;}
+  to   { opacity: 0;}
+}
+
+/* Drawer Slide In/Out */
+.drawer.open {
+  animation: drawerIn 0.42s cubic-bezier(0.62,0,0.33,1) both;
+}
+.drawer.closing {
+  animation: drawerOut 0.36s cubic-bezier(0.55,0,0.27,1) both;
+}
+@keyframes drawerIn {
+  from { transform: translateX(100%);}
+  to   { transform: translateX(0);}
+}
+@keyframes drawerOut {
+  from { transform: translateX(0);}
+  to   { transform: translateX(100%);}
+}
+
+/* Modal Pop-in (Info/About) */
+.modal-content {
+  animation: modalPopIn 0.38s cubic-bezier(0.56,0,0.28,1) both;
+}
+
+@keyframes modalPopIn {
+  from { opacity: 0; transform: scale(0.93) translateY(40px);}
+  to   { opacity: 1; transform: scale(1) translateY(0);}
+}
+
+/* --- Progress Bar Animation (auto) --- */
+#progress-inner {
+  transition: width 0.46s cubic-bezier(0.66,0,0.3,1), background 0.3s;
+}
+
+/* --- Button Feedback --- */
+button,
+input[type="button"],
+input[type="submit"] {
+  transition:
+    background 0.19s cubic-bezier(0.66,0,0.3,1),
+    color 0.18s,
+    box-shadow 0.18s,
+    transform 0.13s;
+}
+
+button:active {
+  animation: buttonTap 0.19s cubic-bezier(0.57,0,0.34,1);
+}
+@keyframes buttonTap {
+  0% { transform: scale(1);}
+  60% { transform: scale(0.97);}
+  100% { transform: scale(1);}
+}
+
+/* Floating Button Pulse (when drawing attention) */
+.floating-btn.pulse {
+  animation: floatingPulse 1.6s cubic-bezier(0.53,0,0.22,1) infinite;
+}
+@keyframes floatingPulse {
+  0%, 100% { box-shadow: 0 3px 18px rgba(22,118,210,0.13);}
+  50% { box-shadow: 0 6px 32px 2px rgba(22,118,210,0.16);}
+}
+
+/* --- Tip / Feedback Appearing --- */
+#tip-area.tip {
+  transition: opacity 0.21s cubic-bezier(0.57,0,0.37,1), background 0.22s;
+}
+#tip-area.tip.show {
+  display: block;
+  opacity: 1;
+  animation: tipIn 0.23s cubic-bezier(0.63,0,0.28,1) both;
+}
+@keyframes tipIn {
+  from { opacity: 0; transform: translateY(12px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+/* --- Eligibility/Result Card Reveal --- */
+.result-content {
+  animation: resultPop 0.53s cubic-bezier(0.54,0,0.25,1) both;
+}
+@keyframes resultPop {
+  0% { opacity: 0; transform: scale(0.95) translateY(40px);}
+  70% { opacity: 0.97; transform: scale(1.02) translateY(-7px);}
+  100% { opacity: 1; transform: scale(1) translateY(0);}
+}
+
+/* --- Recommendations Subtle Fade In --- */
+#recommendations {
+  animation: recosFadeIn 0.47s cubic-bezier(0.53,0,0.26,1) 0.24s both;
+}
+@keyframes recosFadeIn {
+  from { opacity: 0; transform: translateY(15px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+/* --- Success/Attention Spark (optional, for results) --- */
+@keyframes spark {
+  0% { box-shadow: 0 0 0 0 rgba(59,199,123, 0.19);}
+  60% { box-shadow: 0 0 12px 6px rgba(59,199,123, 0.22);}
+  100% { box-shadow: 0 0 0 0 rgba(59,199,123, 0.19);}
+}
+.result-content.success-spark {
+  animation: spark 0.85s cubic-bezier(0.46,0,0.22,1);
+}
+
+/* --- Error/Warning Flash (for contraindication) --- */
+@keyframes warnFlash {
+  0%, 100% { background: var(--brand-white);}
+  20%, 80% { background: #fde9e9;}
+  40%, 60% { background: #f6cfcf;}
+}
+.result-content.warn-flash {
+  animation: warnFlash 0.5s;
+}
+
+/* --- Utility: Hide/Show (fade) --- */
+.hide-fade {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.22s;
+}
+.show-fade {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transition: opacity 0.23s;
+}
+
+/* --- Utility: Slide Up/Down for Questions --- */
+.slide-up-enter {
+  animation: slideUpIn 0.39s cubic-bezier(0.56,0,0.25,1) both;
+}
+@keyframes slideUpIn {
+  from { opacity: 0; transform: translateY(38px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.slide-down-exit {
+  animation: slideDownOut 0.32s cubic-bezier(0.62,0,0.33,1) both;
+}
+@keyframes slideDownOut {
+  from { opacity: 1; transform: translateY(0);}
+  to   { opacity: 0; transform: translateY(36px);}
+}
+
+/* --- Accessibility: Reduced Motion (prefers-reduced-motion) --- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* END animations.css */
